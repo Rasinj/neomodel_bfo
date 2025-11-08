@@ -11,7 +11,7 @@ Pattern demonstrated:
 - Using BFO relationships appropriately
 """
 
-from neomodel import StringProperty, IntegerProperty, FloatProperty, RelationshipTo
+from neomodel import StringProperty, IntegerProperty, FloatProperty, RelationshipTo, RelationshipFrom
 from neomodel_bfo import (
     Object,
     FiatObjectPart,

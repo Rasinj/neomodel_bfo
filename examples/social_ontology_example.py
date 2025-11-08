@@ -11,7 +11,7 @@ Pattern demonstrated:
 - Multiple roles for the same person
 """
 
-from neomodel import StringProperty, IntegerProperty, DateProperty, RelationshipTo, ZeroOrMore
+from neomodel import StringProperty, IntegerProperty, DateProperty, RelationshipTo, RelationshipFrom, ZeroOrMore
 from neomodel_bfo import (
     Object,
     Role,
