@@ -109,6 +109,133 @@ BFO Classes Included
 
 See documentation for the complete class hierarchy.
 
+Documentation & Resources
+--------------------------
+
+This repository contains extensive documentation for different audiences:
+
+For Users
+~~~~~~~~~
+
+**Getting Started:**
+
+* **Installation Guide** - ``docs/installation.rst`` - Setup and requirements
+* **Usage Guide** - ``docs/usage.rst`` - Comprehensive usage examples with all BFO relationships
+* **Online Documentation** - https://neomodel-bfo.readthedocs.io - Full documentation with API reference
+
+**Working with BFO:**
+
+* All BFO classes have detailed docstrings including BFO IDs, definitions, and examples
+* Use your IDE's autocomplete to explore available classes, properties, and relationships
+* Example: ``Object?`` in IPython shows full BFO:0000030 documentation
+
+For Domain Developers
+~~~~~~~~~~~~~~~~~~~~~~
+
+**Creating Extensions:**
+
+* **Extension Guide** - ``examples/EXTENSION_GUIDE.md`` - Complete patterns and best practices for extending BFO
+* **Biology Example** - ``examples/biology_example.py`` - Organisms, anatomical structures, biological processes
+* **Social Ontology Example** - ``examples/social_ontology_example.py`` - People, organizations, roles, social processes
+* **Examples README** - ``examples/README.md`` - Overview of extension patterns
+
+**Key Patterns:**
+
+* Subclass BFO classes for domain entities (``class Organism(Object)``)
+* Use inherited BFO relationships (``part_of``, ``inheres_in``, ``participates_in``)
+* Add domain-specific properties and relationships
+* Never modify ``neomodel_bfo/bfo.py`` - extend in your own code
+
+For Contributors
+~~~~~~~~~~~~~~~~
+
+**Development Guides:**
+
+* **Contributing Guide** - ``CONTRIBUTING.rst`` - How to contribute, PR guidelines, BFO-specific rules
+* **Development Guide** - ``docs/development.rst`` - Detailed development workflow, code organization, testing
+* **Architecture Overview** - ``ARCHITECTURE.md`` - System design, design decisions, extensibility patterns
+
+**Code Organization:**
+
+* **Core Package README** - ``neomodel_bfo/README.md`` - Core module structure and principles
+* **Test Suite README** - ``tests/README.md`` - Testing philosophy and how to run tests
+* **Source Code** - ``neomodel_bfo/bfo.py`` - BFO 2.0 implementation (600+ lines with full documentation)
+
+**Quick Commands:**
+
+::
+
+    # Setup
+    pip install -r requirements_dev.txt
+
+    # Test
+    pytest                           # Run all tests
+    pytest -v                        # Verbose output
+    pytest tests/test_bfo_structure.py  # Specific file
+
+    # Lint
+    flake8 neomodel_bfo tests examples
+
+    # Documentation
+    cd docs && make html
+
+Repository Navigation
+~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    neomodel_bfo/
+    ├── neomodel_bfo/           # Core BFO package
+    │   ├── bfo.py              # BFO 2.0 classes (Entity, Object, Process, Quality, etc.)
+    │   ├── __init__.py         # Package exports
+    │   └── README.md           # Core package documentation
+    │
+    ├── examples/               # Domain extension examples
+    │   ├── biology_example.py  # Biological organisms and processes
+    │   ├── social_ontology_example.py  # People, organizations, roles
+    │   ├── EXTENSION_GUIDE.md  # Complete extension patterns (⭐ START HERE for domain work)
+    │   └── README.md           # Examples overview
+    │
+    ├── tests/                  # Test suite (no Neo4j required)
+    │   ├── test_bfo_structure.py  # Core BFO tests (28 tests)
+    │   ├── test_examples.py   # Example code tests (9 tests)
+    │   └── README.md           # Testing documentation
+    │
+    ├── docs/                   # Sphinx documentation
+    │   ├── usage.rst           # Usage guide with relationships
+    │   ├── development.rst     # Development workflow
+    │   ├── installation.rst    # Installation guide
+    │   └── ...                 # Other documentation
+    │
+    ├── ARCHITECTURE.md         # System architecture and design decisions
+    ├── CONTRIBUTING.rst        # Contribution guidelines (⭐ READ BEFORE CONTRIBUTING)
+    ├── README.rst              # This file
+    └── HISTORY.rst             # Version history and changelog
+
+Finding What You Need
+~~~~~~~~~~~~~~~~~~~~~
+
+**"I want to use BFO in my application"**
+  → Start with Quick Start above, then read ``docs/usage.rst``
+
+**"I want to create a domain ontology"**
+  → Read ``examples/EXTENSION_GUIDE.md``, review ``examples/biology_example.py``
+
+**"I want to understand the architecture"**
+  → Read ``ARCHITECTURE.md``
+
+**"I want to contribute code"**
+  → Read ``CONTRIBUTING.rst``, then ``docs/development.rst``
+
+**"I want to understand a BFO class"**
+  → Read docstrings in ``neomodel_bfo/bfo.py`` or use IDE autocomplete
+
+**"I want to see what relationships are available"**
+  → Check ``docs/usage.rst`` "Working with Relationships" section
+
+**"I need help or found a bug"**
+  → Open an issue at https://github.com/rasinj/neomodel_bfo/issues
+
 Development
 -----------
 
@@ -153,6 +280,34 @@ Key Principles
 * **Graph-first design** - Leverages Neo4j relationships for ontological reasoning
 
 For detailed development guidelines, see ``CONTRIBUTING.rst`` and ``examples/EXTENSION_GUIDE.md``.
+
+Learning BFO
+------------
+
+If you're new to Basic Formal Ontology:
+
+**Official BFO Resources:**
+
+* BFO 2.0 Specification: https://basic-formal-ontology.org
+* BFO OWL Ontology: http://purl.obolibrary.org/obo/bfo.owl
+* BFO Documentation: https://github.com/BFO-ontology/BFO/wiki
+
+**BFO in Practice:**
+
+* OBO Foundry (BFO-based ontologies): http://www.obofoundry.org
+* Gene Ontology (uses BFO): http://geneontology.org
+* Common Core Ontologies (extends BFO): https://github.com/CommonCoreOntology/CommonCoreOntologies
+
+**Key BFO Concepts:**
+
+* **Continuants** persist through time (objects, qualities)
+* **Occurrents** unfold over time (processes, events)
+* **Mereology** (parthood): ``part_of``, ``has_part``
+* **Inherence**: qualities/roles/functions inhere in bearers
+* **Participation**: objects participate in processes
+* **Realization**: processes realize functions and roles
+
+See ``docs/usage.rst`` for how these concepts map to neomodel_bfo classes and relationships.
 
 Credits
 -------
