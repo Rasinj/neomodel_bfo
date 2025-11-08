@@ -16,17 +16,98 @@ neomodel_bfo
 
 
 
-Neomodel-bfo contains boilerplate for making a BFO-2.0 compliant neomodel
+Neomodel-bfo provides a complete BFO 2.0 (Basic Formal Ontology) implementation for Neo4j graph databases using neomodel.
 
+BFO is a top-level ontology designed to support scientific research and knowledge representation. This library lets you build BFO-compliant knowledge graphs in Neo4j, making it ideal for biomedical informatics, scientific data integration, and any domain requiring rigorous ontological modeling.
 
 * Free software: MIT license
-* Documentation: https://neomodel-bfo.readthedocs.io.
+* Documentation: https://neomodel-bfo.readthedocs.io
 
 
 Features
 --------
 
-* TODO
+* **Complete BFO 2.0 Class Hierarchy** - All 40+ BFO classes implemented as neomodel nodes
+* **Core BFO Relationships** - Standard relationships (part_of, inheres_in, participates_in, realizes, etc.)
+* **Temporal & Spatial Properties** - Built-in support for time and space modeling
+* **Extensible Architecture** - Clean separation between core BFO and domain extensions
+* **Comprehensive Documentation** - Detailed docstrings with BFO semantics and examples
+* **Graph Database Native** - Leverages Neo4j's graph capabilities for ontological reasoning
+* **Type-Safe** - Python classes provide type checking and IDE support
+* **Zero Validation Overhead** - No runtime constraint enforcement for maximum flexibility
+
+Quick Start
+------------
+
+Install the package::
+
+    pip install neomodel-bfo
+
+Basic usage::
+
+    from neomodel import config, StringProperty
+    from neomodel_bfo import Object, Quality, Process
+
+    # Configure Neo4j connection
+    config.DATABASE_URL = 'bolt://neo4j:password@localhost:7687'
+
+    # Create a material object (e.g., an organism)
+    organism = Object(name="E. coli K12").save()
+
+    # Create a quality that inheres in the organism
+    temp = Quality(
+        name="Temperature",
+        value="37.0",
+        unit="°C"
+    ).save()
+    temp.inheres_in.connect(organism)
+
+    # Create a process the organism participates in
+    growth = Process(name="Cell division").save()
+    organism.participates_in.connect(growth)
+
+    # Query using graph relationships
+    for quality in organism.bearer_of.all():
+        print(f"{quality.name}: {quality.value} {quality.unit}")
+
+Extending for Your Domain
+--------------------------
+
+Create domain-specific ontologies by subclassing BFO::
+
+    from neomodel import StringProperty, IntegerProperty
+    from neomodel_bfo import Object, Function, Process
+
+    class Organism(Object):
+        """Domain-specific organism class."""
+        species = StringProperty()
+        age_years = IntegerProperty()
+
+    class MetabolicFunction(Function):
+        """A biological function."""
+        pathway = StringProperty()
+
+    # Use BFO relationships
+    heart = Organism(name="Heart", species="Homo sapiens").save()
+    pump_function = MetabolicFunction(name="Pumping").save()
+    pump_function.inheres_in.connect(heart)
+
+See the ``examples/`` directory for complete examples in biology, social science, and more.
+
+BFO Classes Included
+--------------------
+
+**Continuants** (entities that persist through time):
+
+* Independent Continuants: Object, FiatObjectPart, ObjectAggregate, Site, SpatialRegion, etc.
+* Dependent Continuants: Quality, Role, Disposition, Function
+
+**Occurrents** (entities that unfold over time):
+
+* Process, ProcessBoundary, History, ProcessProfile
+* TemporalRegion, SpatioTemporalRegion
+
+See documentation for the complete class hierarchy.
 
 Credits
 -------
