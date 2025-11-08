@@ -8,6 +8,7 @@ Welcome to neomodel_bfo's documentation!
    readme
    installation
    usage
+   development
    modules
    contributing
    authors

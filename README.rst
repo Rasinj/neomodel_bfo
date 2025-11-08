@@ -109,6 +109,51 @@ BFO Classes Included
 
 See documentation for the complete class hierarchy.
 
+Development
+-----------
+
+Setting up a development environment::
+
+    git clone https://github.com/rasinj/neomodel_bfo.git
+    cd neomodel_bfo
+    pip install -r requirements_dev.txt
+
+Running tests::
+
+    pytest
+
+Running linter::
+
+    flake8 neomodel_bfo tests examples
+
+Project Structure
+~~~~~~~~~~~~~~~~~
+
+::
+
+    neomodel_bfo/
+    ├── neomodel_bfo/       # Main package
+    │   ├── __init__.py     # Package exports
+    │   └── bfo.py          # Core BFO 2.0 implementation (DO NOT MODIFY for domain work)
+    ├── examples/           # Domain extension examples
+    │   ├── biology_example.py
+    │   ├── social_ontology_example.py
+    │   └── EXTENSION_GUIDE.md
+    ├── tests/              # Test suite
+    │   ├── test_bfo_structure.py
+    │   └── test_examples.py
+    └── docs/               # Sphinx documentation
+
+Key Principles
+~~~~~~~~~~~~~~
+
+* **Core BFO stays pure** - ``neomodel_bfo/bfo.py`` contains only BFO 2.0 standard classes
+* **Extend via subclassing** - Domain-specific ontologies inherit from BFO classes
+* **No validation enforcement** - Relationships are optional; ontological coherence is documentation-driven
+* **Graph-first design** - Leverages Neo4j relationships for ontological reasoning
+
+For detailed development guidelines, see ``CONTRIBUTING.rst`` and ``examples/EXTENSION_GUIDE.md``.
+
 Credits
 -------
 
