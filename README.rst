@@ -20,8 +20,11 @@ Neomodel-bfo provides a complete BFO 2.0 (Basic Formal Ontology) implementation 
 
 BFO is a top-level ontology designed to support scientific research and knowledge representation. This library lets you build BFO-compliant knowledge graphs in Neo4j, making it ideal for biomedical informatics, scientific data integration, and any domain requiring rigorous ontological modeling.
 
+📚 **Read the Beautiful Documentation**: https://neomodel-bfo.readthedocs.io
+
 * Free software: MIT license
-* Documentation: https://neomodel-bfo.readthedocs.io
+* Repository: https://github.com/rasinj/neomodel_bfo
+* Documentation setup: See ``DOCS_HOSTING.md``
 
 
 Features
@@ -119,9 +122,9 @@ For Users
 
 **Getting Started:**
 
-* **Installation Guide** - ``docs/installation.rst`` - Setup and requirements
-* **Usage Guide** - ``docs/usage.rst`` - Comprehensive usage examples with all BFO relationships
-* **Online Documentation** - https://neomodel-bfo.readthedocs.io - Full documentation with API reference
+* **Installation Guide** - ``docs/installation.md`` - Setup and requirements
+* **Usage Guide** - ``docs/usage.md`` - Comprehensive usage examples with all BFO relationships
+* **Online Documentation** - https://neomodel-bfo.readthedocs.io - Full documentation with API reference (MyST-MD format)
 
 **Working with BFO:**
 
@@ -152,8 +155,9 @@ For Contributors
 **Development Guides:**
 
 * **Contributing Guide** - ``CONTRIBUTING.rst`` - How to contribute, PR guidelines, BFO-specific rules
-* **Development Guide** - ``docs/development.rst`` - Detailed development workflow, code organization, testing
+* **Development Guide** - ``docs/development_old.rst`` - Detailed development workflow, code organization, testing
 * **Architecture Overview** - ``ARCHITECTURE.md`` - System design, design decisions, extensibility patterns
+* **Documentation Hosting** - ``DOCS_HOSTING.md`` - How to view and deploy documentation online
 
 **Code Organization:**
 
@@ -201,14 +205,19 @@ Repository Navigation
     │   ├── test_examples.py   # Example code tests (9 tests)
     │   └── README.md           # Testing documentation
     │
-    ├── docs/                   # Sphinx documentation
-    │   ├── usage.rst           # Usage guide with relationships
-    │   ├── development.rst     # Development workflow
-    │   ├── installation.rst    # Installation guide
+    ├── docs/                   # Sphinx documentation (MyST-MD format)
+    │   ├── index.md            # Documentation landing page
+    │   ├── usage.md            # Usage guide with relationships
+    │   ├── installation.md     # Installation guide
+    │   ├── DEPLOYMENT.md       # Documentation deployment guide
+    │   ├── development_old.rst # Development workflow (RST)
     │   └── ...                 # Other documentation
     │
+    ├── .readthedocs.yaml       # ReadTheDocs configuration
+    ├── .github/workflows/docs.yml  # GitHub Pages deployment
     ├── ARCHITECTURE.md         # System architecture and design decisions
     ├── CONTRIBUTING.rst        # Contribution guidelines (⭐ READ BEFORE CONTRIBUTING)
+    ├── DOCS_HOSTING.md         # Documentation hosting guide (⭐ VIEW DOCS ONLINE)
     ├── README.rst              # This file
     └── HISTORY.rst             # Version history and changelog
 
@@ -216,7 +225,7 @@ Finding What You Need
 ~~~~~~~~~~~~~~~~~~~~~
 
 **"I want to use BFO in my application"**
-  → Start with Quick Start above, then read ``docs/usage.rst``
+  → Start with Quick Start above, then read ``docs/usage.md`` or visit https://neomodel-bfo.readthedocs.io
 
 **"I want to create a domain ontology"**
   → Read ``examples/EXTENSION_GUIDE.md``, review ``examples/biology_example.py``
@@ -225,13 +234,16 @@ Finding What You Need
   → Read ``ARCHITECTURE.md``
 
 **"I want to contribute code"**
-  → Read ``CONTRIBUTING.rst``, then ``docs/development.rst``
+  → Read ``CONTRIBUTING.rst``, then ``docs/development_old.rst``
+
+**"I want to view documentation online"**
+  → Visit https://neomodel-bfo.readthedocs.io or see ``DOCS_HOSTING.md`` for setup
 
 **"I want to understand a BFO class"**
   → Read docstrings in ``neomodel_bfo/bfo.py`` or use IDE autocomplete
 
 **"I want to see what relationships are available"**
-  → Check ``docs/usage.rst`` "Working with Relationships" section
+  → Check ``docs/usage.md`` "Working with Relationships" or online docs
 
 **"I need help or found a bug"**
   → Open an issue at https://github.com/rasinj/neomodel_bfo/issues
