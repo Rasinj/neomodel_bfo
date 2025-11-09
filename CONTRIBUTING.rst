@@ -64,11 +64,10 @@ Ready to contribute? Here's how to set up `neomodel_bfo` for local development.
 
     $ git clone git@github.com:your_name_here/neomodel_bfo.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+3. Install development dependencies::
 
-    $ mkvirtualenv neomodel_bfo
     $ cd neomodel_bfo/
-    $ python setup.py develop
+    $ pip install -r requirements_dev.txt
 
 4. Create a branch for local development::
 
@@ -76,14 +75,10 @@ Ready to contribute? Here's how to set up `neomodel_bfo` for local development.
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the
-   tests, including testing other Python versions with tox::
+5. When you're done making changes, check that your changes pass the tests and linter::
 
-    $ flake8 neomodel_bfo tests
-    $ python setup.py test or pytest
-    $ tox
-
-   To get flake8 and tox, just pip install them into your virtualenv.
+    $ pytest
+    $ flake8 neomodel_bfo tests examples
 
 6. Commit your changes and push your branch to GitHub::
 
@@ -92,6 +87,35 @@ Ready to contribute? Here's how to set up `neomodel_bfo` for local development.
     $ git push origin name-of-your-bugfix-or-feature
 
 7. Submit a pull request through the GitHub website.
+
+.. note::
+   For detailed development guidelines, see ``docs/development.rst``
+
+BFO-Specific Guidelines
+-----------------------
+
+This project maintains a pure BFO 2.0 core implementation. Please follow these principles:
+
+**For Core BFO Changes** (``neomodel_bfo/bfo.py``):
+
+* Only add standard BFO 2.0 classes, properties, and relationships
+* Include BFO ID in docstring (e.g., "BFO:0000001")
+* Reference BFO specification for definitions
+* Do NOT add domain-specific extensions to the core
+
+**For Domain Extensions**:
+
+* Add examples to ``examples/`` directory
+* Follow patterns in ``examples/EXTENSION_GUIDE.md``
+* Extend BFO classes via subclassing
+* Document your ontological choices
+
+**For Tests**:
+
+* Tests should run without Neo4j database
+* Test structure, not behavior (properties exist, hierarchy correct, etc.)
+* Add tests for new classes in ``tests/test_bfo_structure.py``
+* Add tests for new examples in ``tests/test_examples.py``
 
 Pull Request Guidelines
 -----------------------
@@ -102,27 +126,39 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
-3. The pull request should work for Python 3.5, 3.6, 3.7 and 3.8, and for PyPy. Check
-   https://travis-ci.com/rasinj/neomodel_bfo/pull_requests
-   and make sure that the tests pass for all supported Python versions.
+3. All tests pass: ``pytest``
+4. Code passes linting: ``flake8 neomodel_bfo tests examples``
+5. Docstrings include BFO IDs for BFO classes
+6. Follow the BFO-specific guidelines above
 
 Tips
 ----
 
-To run a subset of tests::
+**Run specific tests**::
 
+    $ pytest tests/test_bfo_structure.py::TestBFOHierarchy
 
-    $ python -m unittest tests.test_neomodel_bfo
+**Run tests with coverage**::
 
-Deploying
+    $ pytest --cov=neomodel_bfo
+
+**Run tests in verbose mode**::
+
+    $ pytest -v
+
+**Check what's exported**::
+
+    $ python -c "from neomodel_bfo import *; print(__all__)"
+
+**Test imports work**::
+
+    $ python -c "from neomodel_bfo import Object, Quality, Process; print('OK')"
+
+Resources
 ---------
 
-A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed (including an entry in HISTORY.rst).
-Then run::
-
-$ bump2version patch # possible: major / minor / patch
-$ git push
-$ git push --tags
-
-Travis will then deploy to PyPI if tests pass.
+* Development Guide: ``docs/development.rst``
+* Extension Guide: ``examples/EXTENSION_GUIDE.md``
+* Test Documentation: ``tests/README.md``
+* BFO 2.0 Specification: https://basic-formal-ontology.org
+* Neomodel Documentation: https://neomodel.readthedocs.io
