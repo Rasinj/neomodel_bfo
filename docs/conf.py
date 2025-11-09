@@ -31,16 +31,37 @@ import neomodel_bfo
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode']
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',  # Google/NumPy docstring support
+    'myst_parser',          # MyST Markdown support
+    'sphinx_design',        # Cards, grids, tabs, dropdowns
+    'sphinx_copybutton',    # Copy button for code blocks
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-# source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+# Support both RST and MyST Markdown
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
+
+# MyST Parser configuration
+myst_enable_extensions = [
+    "colon_fence",      # ::: instead of ``` for directives
+    "deflist",          # Definition lists
+    "fieldlist",        # Field lists
+    "tasklist",         # Task lists with checkboxes
+    "attrs_inline",     # Inline attributes
+    "attrs_block",      # Block attributes
+]
+
+# Enable MyST features
+myst_heading_anchors = 3  # Auto-generate anchors for headings
 
 # The master toctree document.
 master_doc = 'index'
@@ -83,13 +104,30 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'furo'
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    "light_css_variables": {
+        "color-brand-primary": "#2962ff",
+        "color-brand-content": "#2962ff",
+    },
+    "dark_css_variables": {
+        "color-brand-primary": "#82b1ff",
+        "color-brand-content": "#82b1ff",
+    },
+    "sidebar_hide_name": False,
+    "navigation_with_keys": True,
+}
+
+# Additional HTML configuration
+html_title = "neomodel_bfo"
+html_short_title = "neomodel_bfo"
+html_logo = None  # Add logo path if you have one
+html_favicon = None  # Add favicon path if you have one
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
